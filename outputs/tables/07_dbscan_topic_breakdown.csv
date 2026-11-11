@@ -1,0 +1,20 @@
+dbscan_cluster,human_topic_label,questions,cluster_total,topic_share,majority_topic,cluster_purity
+1,"Root, propagation, and soil",5,52,0.09615384615384616,"Root, propagation, and soil",0.09615384615384616
+1,Tomato plants,5,52,0.09615384615384616,"Root, propagation, and soil",0.09615384615384616
+1,"Trees, fruit, and branches",5,52,0.09615384615384616,"Root, propagation, and soil",0.09615384615384616
+1,Lawn and weeds,4,52,0.07692307692307693,"Root, propagation, and soil",0.09615384615384616
+1,Pests and insects,4,52,0.07692307692307693,"Root, propagation, and soil",0.09615384615384616
+1,Plant recovery and decline,4,52,0.07692307692307693,"Root, propagation, and soil",0.09615384615384616
+1,Aloe,3,52,0.057692307692307696,"Root, propagation, and soil",0.09615384615384616
+1,Citrus,3,52,0.057692307692307696,"Root, propagation, and soil",0.09615384615384616
+1,Flowering plants,3,52,0.057692307692307696,"Root, propagation, and soil",0.09615384615384616
+1,Leaf spots and possible disease,3,52,0.057692307692307696,"Root, propagation, and soil",0.09615384615384616
+1,Other,3,52,0.057692307692307696,"Root, propagation, and soil",0.09615384615384616
+1,Cactus and succulents,2,52,0.038461538461538464,"Root, propagation, and soil",0.09615384615384616
+1,Seeds and seedlings,2,52,0.038461538461538464,"Root, propagation, and soil",0.09615384615384616
+1,Composting,1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616
+1,Garden and landscape,1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616
+1,Palm plants,1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616
+1,Seasonal growth and plant care,1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616
+1,Unclear (not enough information),1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616
+1,Watering and general plant care,1,52,0.019230769230769232,"Root, propagation, and soil",0.09615384615384616

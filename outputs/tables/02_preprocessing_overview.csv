@@ -1,0 +1,4 @@
+metric,value,interpretation
+Clean questions,8536,Questions with non-empty normalized title/body text.
+Health candidates,8536,Rows matching the broad plant-health candidate keywords.
+Health candidate share,100.0%,"A candidate filter rate, not measured health-topic precision or recall."

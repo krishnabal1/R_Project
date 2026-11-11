@@ -1,0 +1,10 @@
+column,type,missing_values,distinct_values
+question_id,numeric,0,16454
+site,character,0,1
+creation_date,POSIXct/POSIXt,0,16452
+title,character,0,16449
+body,character,0,16454
+link,character,0,16454
+score,numeric,0,34
+view_count,numeric,0,4716
+answer_count,numeric,0,12

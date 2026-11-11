@@ -1,0 +1,9 @@
+metric,value
+Test examples,5
+Calibration examples,8
+Mapped test coverage,1
+Accuracy,0.4
+Balanced accuracy,0.5
+Macro precision,0.2
+Macro recall,0.5
+Macro F1,0.28571428571428575

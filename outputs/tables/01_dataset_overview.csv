@@ -1,0 +1,7 @@
+metric,value
+Input rows,16454
+Input columns,9
+Unique question IDs,16454
+Rows retained after text cleaning,8536
+Plant-health candidates,8536
+Share retained as health candidates,100.0%

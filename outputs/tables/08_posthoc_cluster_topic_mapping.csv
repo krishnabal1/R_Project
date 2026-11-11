@@ -1,0 +1,21 @@
+cluster_id,posthoc_predicted_topic,mapping_examples,cluster_total,mapping_support
+1,Tomato plants,13,13,1
+2,Citrus,12,20,0.6
+3,Palm plants,12,12,1
+4,Garden and landscape,13,20,0.65
+5,"Root, propagation, and soil",13,18,0.7222222222222222
+6,Unclear (not enough information),3,19,0.15789473684210525
+7,Lawn and weeds,14,15,0.9333333333333333
+8,Seeds and seedlings,14,14,1
+9,Composting,21,29,0.7241379310344828
+10,"Trees, fruit, and branches",9,11,0.8181818181818182
+11,Leaf spots and possible disease,6,8,0.75
+12,"Trees, fruit, and branches",12,12,1
+13,Aloe,13,17,0.7647058823529411
+14,Cactus and succulents,15,15,1
+15,Pests and insects,10,10,1
+16,Flowering plants,12,13,0.9230769230769231
+17,Leaf spots and possible disease,9,15,0.6
+18,Leaf spots and possible disease,10,12,0.8333333333333334
+19,"Trees, fruit, and branches",4,4,1
+20,Leaf spots and possible disease,17,23,0.7391304347826086

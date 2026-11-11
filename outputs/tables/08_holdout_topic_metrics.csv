@@ -1,0 +1,12 @@
+metric,value,interpretation
+Unlabeled training questions,8236,"Questions used to fit vocabulary, TF-IDF, SVD, and k-means; reviewed rows were excluded."
+Reviewed held-out questions,300,Independently human-labeled questions reserved for evaluation.
+Held-out questions projected,300,Held-out rows with at least one usable term in the training vocabulary.
+Selected training k,20,Cluster count selected using training data only.
+Human topic labels in test set,19,Distinct human topic categories in the projected held-out set.
+Post-hoc mapped accuracy (uses all 300 human labels),0.7733333333333333,Descriptive post-hoc score: each cluster is named using the majority human label among these same 300 rows; optimistic and not independent test accuracy.
+Post-hoc mapped balanced accuracy,0.6680504417346522,Macro average recall for the same post-hoc mapping; uses test labels to name clusters.
+Post-hoc mapped macro F1,0.6292822802371522,Macro F1 for the same post-hoc mapping; uses test labels to name clusters.
+Adjusted Rand index,0.4684057359224765,Chance-adjusted agreement between holdout cluster membership and human topics; not classification accuracy.
+Normalized mutual information,0.7336830398565513,Normalized shared information between holdout clusters and human topics; not classification accuracy.
+Cluster purity (descriptive),0.7733333333333333,Descriptive majority-topic share; not chance-adjusted and not classification accuracy.

@@ -1,0 +1,3 @@
+cluster_id,predicted_condition,calibration_examples,cluster_total,cluster_purity
+5,Fungal or oomycete tomato disease,1,1,1
+15,Fungal or oomycete tomato disease,5,7,0.7142857142857143

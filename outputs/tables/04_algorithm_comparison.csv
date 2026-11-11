@@ -1,0 +1,4 @@
+algorithm                 , cluster_count, assigned_fraction, minimum_cluster_size, silhouette          , davies_bouldin    , calinski_harabasz , min_points, epsilon_quantile, epsilon           , eligible, selected, stability_mean_ari
+K-means                   ,            20,             1    ,                   26, 0.07729458298822264 , 2.9170110005413483, 47.389981435496715, NA        , NA              , NA                , NA      , NA      , 0.4589296797548095
+DBSCAN                    ,             2,             0.992,                    7, 0.053259123122864585, 1.3852432848994878,  7.232543249196133, 5         , 0.9             , 0.9278182620159315, TRUE    , TRUE    , NA
+Hierarchical Ward (sample),            20,             1    ,                   11, 0.06280673959077589 , 2.901469920701398 , 13.811504363413738, NA        , NA              , NA                , NA      , NA      , NA

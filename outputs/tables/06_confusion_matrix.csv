@@ -1,0 +1,7 @@
+actual,predicted,Freq
+Bacterial tomato disease,Bacterial tomato disease,0
+Fungal or oomycete tomato disease,Bacterial tomato disease,0
+Bacterial tomato disease,Fungal or oomycete tomato disease,3
+Fungal or oomycete tomato disease,Fungal or oomycete tomato disease,2
+Bacterial tomato disease,Unmapped cluster,0
+Fungal or oomycete tomato disease,Unmapped cluster,0

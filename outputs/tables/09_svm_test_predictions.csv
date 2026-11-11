@@ -1,0 +1,57 @@
+question_id,source_url,actual_topic,predicted_topic,correct
+24474,https://gardening.stackexchange.com/questions/24474/new-fungus-or-mold-on-my-basil-plant-soil,"Root, propagation, and soil",Leaf spots and possible disease,FALSE
+36492,https://gardening.stackexchange.com/questions/36492/what-is-growing-on-my-pots-and-soil,"Root, propagation, and soil",Pests and insects,FALSE
+43767,https://gardening.stackexchange.com/questions/43767/plants-to-stop-water-erosion-on-a-hill,"Root, propagation, and soil","Root, propagation, and soil",TRUE
+49473,https://gardening.stackexchange.com/questions/49473/can-we-use-coco-and-peat-moss-at-same-time,"Root, propagation, and soil",Composting,FALSE
+36270,https://gardening.stackexchange.com/questions/36270/avocado-leaf-problem,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+55091,https://gardening.stackexchange.com/questions/55091/brown-splotches-on-leaves-on-dracaena-fragrans,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+9694,https://gardening.stackexchange.com/questions/9694/why-are-the-leaves-turning-yellow-on-these-conifers,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+38971,https://gardening.stackexchange.com/questions/38971/i-cut-the-top-of-my-schefflera-plant-and-its-been-droopy-since-then,Plant recovery and decline,Leaf spots and possible disease,FALSE
+57479,https://gardening.stackexchange.com/questions/57479/is-this-the-right-way-to-plant-mint-cuttings,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+57902,https://gardening.stackexchange.com/questions/57902/tree-rot-weeds-growing-from-the-rot,Composting,"Trees, fruit, and branches",FALSE
+41895,https://gardening.stackexchange.com/questions/41895/my-song-of-india-plant-have-these-light-brown-spots-what-are-they,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+59535,https://gardening.stackexchange.com/questions/59535/black-spots-on-my-tomato-plants,Tomato plants,Tomato plants,TRUE
+11300,https://gardening.stackexchange.com/questions/11300/improving-soil-for-grass,Lawn and weeds,Lawn and weeds,TRUE
+46215,https://gardening.stackexchange.com/questions/46215/how-to-grow-grass-where-an-underground-pool-once-was,Lawn and weeds,Lawn and weeds,TRUE
+47464,https://gardening.stackexchange.com/questions/47464/why-are-the-new-growths-on-my-sago-palm-withering-and-turning-yellow-vrown,Palm plants,Palm plants,TRUE
+55989,https://gardening.stackexchange.com/questions/55989/areca-palm-growth-stunted-after-repotting-it-in-a-larger-pot-since-last-6-months,Palm plants,Palm plants,TRUE
+47986,https://gardening.stackexchange.com/questions/47986/best-wavelength-mix-for-an-indoor-led-grow-light-used-to-grow-basil,Garden and landscape,Leaf spots and possible disease,FALSE
+9705,https://gardening.stackexchange.com/questions/9705/how-do-i-get-rid-of-worm-like-trails-all-over-my-senetti-plants-leaves,Pests and insects,Pests and insects,TRUE
+29403,https://gardening.stackexchange.com/questions/29403/how-can-i-repair-a-damaged-aloe-vera-that-hasnt-been-watered-for-months,Aloe,Aloe,TRUE
+39038,https://gardening.stackexchange.com/questions/39038/what-is-causing-black-leaves-on-my-aloe-vera-plant,Leaf spots and possible disease,Aloe,FALSE
+39533,https://gardening.stackexchange.com/questions/39533/whats-wrong-with-my-fish-hook-plant,Garden and landscape,Aloe,FALSE
+9806,https://gardening.stackexchange.com/questions/9806/should-i-use-tap-water-for-my-aloe-and-lucky-bamboo,Leaf spots and possible disease,Aloe,FALSE
+22373,https://gardening.stackexchange.com/questions/22373/how-should-i-overwinter-kaffir-lime-indoors,Leaf spots and possible disease,Citrus,FALSE
+49123,https://gardening.stackexchange.com/questions/49123/potted-indoor-lemon-tree,Citrus,Citrus,TRUE
+54573,https://gardening.stackexchange.com/questions/54573/re-potting-a-lemon-tree-almost-all-leaves-turned-brown-on-a-hot-day,Citrus,Citrus,TRUE
+63072,https://gardening.stackexchange.com/questions/63072/lemon-seedling-turning-yellow-and-stopped-growing,Leaf spots and possible disease,Leaf spots and possible disease,TRUE
+18098,https://gardening.stackexchange.com/questions/18098/is-late-april-too-late-to-plant-herbs-from-seed-in-the-us-pacific-northwest,Seeds and seedlings,Seeds and seedlings,TRUE
+46407,https://gardening.stackexchange.com/questions/46407/pepper-plants-strange-spots-and-colouration,Garden and landscape,Tomato plants,FALSE
+66793,https://gardening.stackexchange.com/questions/66793/when-to-transplant-seedlings-from-coco-peat-germination-medium-to-soil,Seeds and seedlings,Seeds and seedlings,TRUE
+26628,https://gardening.stackexchange.com/questions/26628/is-it-feasible-to-compost-small-amounts-of-plant-matter,Composting,Composting,TRUE
+53233,https://gardening.stackexchange.com/questions/53233/how-can-i-tell-whether-compost-is-too-hot-to-plant-into,Composting,Composting,TRUE
+31429,https://gardening.stackexchange.com/questions/31429/help-identifying-this-australian-bush-with-pink-yellow-flowers,Flowering plants,Flowering plants,TRUE
+47297,https://gardening.stackexchange.com/questions/47297/can-anyone-identify-this-flowering-plant,Flowering plants,Flowering plants,TRUE
+24676,https://gardening.stackexchange.com/questions/24676/will-the-power-of-sunchoke-ruin-plastic,Composting,Garden and landscape,FALSE
+9848,https://gardening.stackexchange.com/questions/9848/how-can-i-get-a-map-of-my-plot-of-land-for-planning-purposes,Garden and landscape,"Trees, fruit, and branches",FALSE
+38475,https://gardening.stackexchange.com/questions/38475/my-six-week-old-tomato-seedlings-dont-look-great-please-help,Tomato plants,Tomato plants,TRUE
+42377,https://gardening.stackexchange.com/questions/42377/why-are-my-tomato-plant-leaves-turning-brown-shriveling-dying,Tomato plants,Tomato plants,TRUE
+29539,https://gardening.stackexchange.com/questions/29539/how-do-i-overwinter-potted-fruit-trees,"Trees, fruit, and branches",Garden and landscape,FALSE
+32666,https://gardening.stackexchange.com/questions/32666/imidian-for-apple-trees,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE
+36743,https://gardening.stackexchange.com/questions/36743/when-does-ivy-become-dangerous-or-harmful-up-a-tree,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE
+38511,https://gardening.stackexchange.com/questions/38511/cutting-down-trees-with-squirrel-nests,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE
+64636,https://gardening.stackexchange.com/questions/64636/how-should-i-handle-needle-buildup-under-my-lawson-cypress-hedge,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE
+8387,https://gardening.stackexchange.com/questions/8387/why-do-my-newly-planted-arborvitae-keep-dying,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE
+30155,https://gardening.stackexchange.com/questions/30155/my-cactus-is-turning-brown-on-top-is-this-usual,Cactus and succulents,Cactus and succulents,TRUE
+43511,https://gardening.stackexchange.com/questions/43511/help-revive-cactus,Cactus and succulents,Cactus and succulents,TRUE
+46384,https://gardening.stackexchange.com/questions/46384/my-cactus-is-brownish-at-the-bottom-is-it-rot,Cactus and succulents,Cactus and succulents,TRUE
+65380,https://gardening.stackexchange.com/questions/65380/what-are-these-brown-spots-on-my-cactus-are-they-normal-or,Cactus and succulents,Cactus and succulents,TRUE
+22604,https://gardening.stackexchange.com/questions/22604/is-it-ok-to-plant-flowering-plants-near-my-herb-garden,Pests and insects,Leaf spots and possible disease,FALSE
+42244,https://gardening.stackexchange.com/questions/42244/white-mold-or-insects-on-magic-basil-plant,Pests and insects,Pests and insects,TRUE
+65626,https://gardening.stackexchange.com/questions/65626/how-do-i-get-a-pineapple-to-fruit,Aloe,Leaf spots and possible disease,FALSE
+65984,https://gardening.stackexchange.com/questions/65984/blackberry-cultivar-recommendation-for-west-essex-uk,Aloe,Leaf spots and possible disease,FALSE
+32831,https://gardening.stackexchange.com/questions/32831/can-i-plant-saffron-in-spring,Seasonal growth and plant care,Seeds and seedlings,FALSE
+39029,https://gardening.stackexchange.com/questions/39029/dying-houseplant,Unclear (not enough information),Aloe,FALSE
+49677,https://gardening.stackexchange.com/questions/49677/phototropism-on-rosemary-plant,Other,Leaf spots and possible disease,FALSE
+61301,https://gardening.stackexchange.com/questions/61301/which-basil-leaves-should-i-pick-to-minimise-damage-to-the-plant,Watering and general plant care,Leaf spots and possible disease,FALSE
+42320,https://gardening.stackexchange.com/questions/42320/is-this-evergreen-with-yellow-branches-sick,"Trees, fruit, and branches","Trees, fruit, and branches",TRUE

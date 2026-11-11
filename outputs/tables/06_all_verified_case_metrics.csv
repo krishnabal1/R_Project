@@ -1,0 +1,5 @@
+metric,value
+All verified examples,13
+Mapped coverage,1
+Apparent accuracy (includes calibration cases),0.6153846153846154
+Balanced apparent accuracy,0.5
