@@ -1,0 +1,24 @@
+PLANT HEALTH QUESTION ANALYSIS
+==============================
+
+Source: stackexchange_gardening_raw_25k.csv
+Original data rows: 16454
+Health candidate questions: 8536
+Balanced real-question cluster sample: 300 rows at data/processed/06_cluster_labeled_300_with_sources.csv
+K-means selected k: 18
+K-means search range: 2 to 60
+Minimum k eligible for selection: 10
+LSA dimensions used for clustering: 2
+K-means sample silhouette: 0.5303
+K-means stability mean ARI: 0.6981
+DBSCAN sampled clusters: 2
+DBSCAN sample coverage: 98.9%
+DBSCAN sample silhouette: 0.5691
+
+Stack Exchange questions are used only as unlabeled text for clustering.
+Cluster names are human topic summaries, not disease diagnoses or training labels.
+The 300-row cluster sample contains real questions with one unsupervised cluster ID; it is separate from the source-derived disease benchmark.
+A source-grouped calibration subset maps clusters to conditions; disjoint source pages are held out for evaluation.
+The health-keyword filter selects candidates and may include false positives or miss cases.
+DBSCAN and hierarchical results are sample-based for bounded memory and runtime.
+

@@ -1,20 +1,18 @@
-human_topic_label,support,precision,recall,f1
-Aloe,3,0.5,0.3333333333333333,0.4
-Cactus and succulents,4,1,1,1
-Citrus,2,0.5,0.5,0.5
-Composting,4,0.6,0.75,0.6666666666666665
-Flowering plants,2,0.5,1,0.6666666666666666
-Garden and landscape,4,0.6666666666666666,0.5,0.5714285714285715
-Lawn and weeds,2,1,1,1
-Leaf spots and possible disease,9,0.5,1,0.6666666666666666
-Other,1,0,0,0
-Palm plants,2,1,1,1
-Pests and insects,3,0.6666666666666666,0.6666666666666666,0.6666666666666666
-Plant recovery and decline,1,0,0,0
-"Root, propagation, and soil",4,0.5,0.25,0.3333333333333333
-Seasonal growth and plant care,1,0,0,0
-Seeds and seedlings,2,1,0.5,0.6666666666666666
-Tomato plants,3,1,1,1
-"Trees, fruit, and branches",7,1,0.7142857142857143,0.8333333333333333
-Unclear (not enough information),1,0,0,0
-Watering and general plant care,1,0,0,0
+human_topic_label               , support, precision         , recall            , f1
+Aloe                            ,       3, 0.5               , 0.3333333333333333, 0.4
+Cactus and succulents           ,       4, 1                 , 1                 , 1
+Citrus                          ,       2, 0.5               , 0.5               , 0.5
+Composting                      ,       4, 0.6               , 0.75              , 0.6666666666666665
+Flowering plants                ,       2, 0.5               , 1                 , 0.6666666666666666
+Garden and landscape            ,       4, 0.6666666666666666, 0.5               , 0.5714285714285715
+Lawn and weeds                  ,       2, 1                 , 1                 , 1
+Leaf spots and possible disease ,       9, 0.5               , 1                 , 0.6666666666666666
+Pests and insects               ,       3, 0.6666666666666666, 0.6666666666666666, 0.6666666666666666
+Plant recovery and decline      ,       1, 0                 , 0                 , 0
+"Root, propagation, and soil"   ,       4, 0.5               , 0.25              , 0.3333333333333333
+Seasonal growth and plant care  ,       1, 0                 , 0                 , 0
+Seeds and seedlings             ,       2, 1                 , 0.5               , 0.6666666666666666
+Tomato plants                   ,       3, 1                 , 1                 , 1
+"Trees, fruit, and branches"    ,       7, 1                 , 0.7142857142857143, 0.8333333333333333
+Unclear (not enough information),       1, 0                 , 0                 , 0
+Watering and general plant care ,       1, 0                 , 0                 , 0
