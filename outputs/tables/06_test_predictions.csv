@@ -1,6 +1,0 @@
-case_id,cluster_id,cluster_condition,source_url,actual,predicted
-ref-septoria-umd-01,15,Fungal or oomycete tomato disease,https://extension.umd.edu/resource/septoria-leaf-spot-tomatoes,Fungal or oomycete tomato disease,Fungal or oomycete tomato disease
-ref-septoria-umd-02,15,Fungal or oomycete tomato disease,https://extension.umd.edu/resource/septoria-leaf-spot-tomatoes,Fungal or oomycete tomato disease,Fungal or oomycete tomato disease
-ref-bacterial-spot-01,15,Fungal or oomycete tomato disease,https://content.ces.ncsu.edu/bacterial-spot-of-pepper-and-tomato,Bacterial tomato disease,Fungal or oomycete tomato disease
-ref-bacterial-spot-02,15,Fungal or oomycete tomato disease,https://content.ces.ncsu.edu/bacterial-spot-of-pepper-and-tomato,Bacterial tomato disease,Fungal or oomycete tomato disease
-ref-bacterial-spot-03,15,Fungal or oomycete tomato disease,https://content.ces.ncsu.edu/bacterial-spot-of-pepper-and-tomato,Bacterial tomato disease,Fungal or oomycete tomato disease

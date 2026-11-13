@@ -1,20 +1,20 @@
 actual_topic,Aloe,Cactus and succulents,Citrus,Composting,Flowering plants,Garden and landscape,Lawn and weeds,Leaf spots and possible disease,Other,Palm plants,Pests and insects,Plant recovery and decline,"Root, propagation, and soil",Seasonal growth and plant care,Seeds and seedlings,Tomato plants,"Trees, fruit, and branches",Unclear (not enough information),Watering and general plant care
-Aloe,13,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0
-Cactus and succulents,0,15,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,2,0
-Citrus,0,0,12,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
-Composting,0,0,0,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-Flowering plants,0,0,0,0,12,0,1,0,0,0,0,0,0,0,0,0,0,0,0
-Garden and landscape,0,0,0,8,0,13,0,1,0,0,0,0,0,0,0,0,0,0,0
-Lawn and weeds,0,0,0,0,0,0,14,0,0,0,0,0,0,0,0,0,0,0,0
-Leaf spots and possible disease,0,0,2,0,0,1,0,42,0,0,0,0,3,0,0,0,0,1,0
-Other,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0
-Palm plants,0,0,0,0,0,0,0,1,0,12,0,0,0,0,0,0,0,0,0
-Pests and insects,2,0,0,0,0,0,0,0,0,0,10,0,1,0,0,0,1,1,0
-Plant recovery and decline,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,2,0
-"Root, propagation, and soil",2,0,0,0,0,2,0,1,0,0,0,0,13,0,0,0,0,2,0
-Seasonal growth and plant care,0,0,0,0,0,2,0,1,0,0,0,0,0,0,0,0,0,2,0
-Seeds and seedlings,0,0,0,0,0,0,0,0,0,0,0,0,0,0,14,0,0,0,0
-Tomato plants,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,13,0,0,0
-"Trees, fruit, and branches",0,0,6,0,1,1,0,4,0,0,0,0,0,0,0,0,25,0,0
-Unclear (not enough information),0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,0
-Watering and general plant care,0,0,0,0,0,0,0,2,0,0,0,0,1,0,0,0,0,3,0
+Aloe,7,4,0,0,0,1,0,2,0,0,0,0,0,0,1,0,0,0,0
+Cactus and succulents,2,8,0,2,1,1,1,4,0,0,0,0,0,0,1,0,0,0,0
+Citrus,0,0,7,1,0,0,0,0,0,0,1,0,0,0,0,0,4,0,0
+Composting,1,0,0,9,0,3,0,3,0,0,0,0,3,0,1,0,1,0,0
+Flowering plants,2,1,0,0,2,1,0,6,0,0,0,0,0,0,1,0,0,0,0
+Garden and landscape,1,0,0,5,0,8,0,6,0,0,0,0,2,0,0,0,0,0,0
+Lawn and weeds,1,0,0,4,0,2,5,0,0,0,0,0,1,0,0,0,1,0,0
+Leaf spots and possible disease,4,5,1,1,2,1,2,30,0,0,0,0,0,0,0,0,3,0,0
+Other,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Palm plants,1,2,0,0,0,2,0,5,0,0,1,0,0,0,2,0,0,0,0
+Pests and insects,3,1,0,2,1,0,0,6,0,0,2,0,0,0,0,0,0,0,0
+Plant recovery and decline,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0
+"Root, propagation, and soil",2,1,0,1,0,2,1,5,0,0,1,0,6,0,1,0,0,0,0
+Seasonal growth and plant care,2,0,0,0,0,0,1,2,0,0,0,0,0,0,0,0,0,0,0
+Seeds and seedlings,0,0,1,1,0,0,3,4,0,0,1,0,1,0,3,0,0,0,0
+Tomato plants,1,5,0,0,0,0,0,7,0,0,1,0,1,0,0,0,0,0,0
+"Trees, fruit, and branches",1,0,6,4,0,1,0,1,0,0,0,0,2,0,0,0,22,0,0
+Unclear (not enough information),1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0
+Watering and general plant care,0,1,0,0,1,0,0,3,0,0,0,0,0,0,1,0,0,0,0

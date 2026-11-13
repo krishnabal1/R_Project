@@ -1,20 +1,20 @@
 human_topic_label,support,precision,recall,f1
-Aloe,3,0.2,0.3333333333333333,0.25
+Aloe,3,0.5,0.3333333333333333,0.4
 Cactus and succulents,4,1,1,1
-Citrus,2,0.6666666666666666,1,0.8
-Composting,4,0.6666666666666666,0.5,0.5714285714285715
-Flowering plants,2,1,1,1
-Garden and landscape,4,0,0,0
+Citrus,2,0.5,0.5,0.5
+Composting,4,0.6,0.75,0.6666666666666665
+Flowering plants,2,0.5,1,0.6666666666666666
+Garden and landscape,4,0.6666666666666666,0.5,0.5714285714285715
 Lawn and weeds,2,1,1,1
-Leaf spots and possible disease,9,0.42857142857142855,0.6666666666666666,0.5217391304347826
+Leaf spots and possible disease,9,0.5,1,0.6666666666666666
 Other,1,0,0,0
 Palm plants,2,1,1,1
 Pests and insects,3,0.6666666666666666,0.6666666666666666,0.6666666666666666
 Plant recovery and decline,1,0,0,0
-"Root, propagation, and soil",4,1,0.25,0.4
+"Root, propagation, and soil",4,0.5,0.25,0.3333333333333333
 Seasonal growth and plant care,1,0,0,0
-Seeds and seedlings,2,0.6666666666666666,1,0.8
-Tomato plants,3,0.75,1,0.8571428571428571
-"Trees, fruit, and branches",7,0.75,0.8571428571428571,0.7999999999999999
+Seeds and seedlings,2,1,0.5,0.6666666666666666
+Tomato plants,3,1,1,1
+"Trees, fruit, and branches",7,1,0.7142857142857143,0.8333333333333333
 Unclear (not enough information),1,0,0,0
 Watering and general plant care,1,0,0,0

@@ -21,14 +21,21 @@ install.packages(c("readr", "dplyr", "stringr", "ggplot2", "xml2",
 
 1. Run `main.R` to clean the local Stack Exchange CSV and compare k-means, DBSCAN, and hierarchical clusters.
 2. Review `outputs/tables/04_cluster_summary_top_terms.csv` and representative examples.
-3. Enter human-written topic summaries in `data/review/cluster_topic_labels.csv`; these are not diagnoses.
+3. Review question topics and current model labels in the single `data/review/06_topic_review.csv` sheet; the labels are exploratory, not diagnoses.
 4. Add short paraphrased symptom cases with a supported condition and source URL to `data/verified/verified_plant_cases.csv`.
 5. Set `verified` to `yes` only after checking a reliable diagnostic source; enter verifier and date.
 6. Rerun `main.R`; calibration cases map k-means clusters to conditions, while disjoint source pages are held out for evaluation.
 7. Use `predict_new_question.R` to assign a new question to a mapped cluster. Unmapped clusters return an explicit message.
 
 Unsupervised scores (silhouette, Davies-Bouldin, Calinski-Harabasz) describe
-cluster structure, not disease accuracy. Cluster-mapping metrics are computed
+cluster structure, not disease accuracy. K-means candidates are searched from 2 through 60;
+the unconstrained silhouette maximum was k=2, but two buckets are too broad for topic discovery.
+Selection therefore requires k >= 10 to preserve more topic granularity.
+Run `Rscript evaluate_lsa_k_sensitivity.R` to compare dimensions and k.
+Run `Rscript validate_lsa_k_configs.R` to compare leading candidates on a separate point sample.
+The current 2-dimension, k>=10 selection is a high-silhouette topic-granularity tradeoff;
+inspect sensitivity results and cluster terms before interpreting it.
+Cluster-mapping metrics are computed
 only from a held-out split grouped by source page. Never use held-out
 labels to assign a condition to a cluster. Stack Exchange questions and
 the old manual annotation sheet are not used as diagnosis labels.

@@ -3,10 +3,7 @@ choose_two <- function(values) {
 }
 
 evaluate_topic_svm <- function(config) {
-  review_path <- file.path(
-    config$review_dir,
-    "06_topic_blind_review_reviewed.csv"
-  )
+  review_path <- config$topic_review_file
   corpus_path <- file.path(config$data_dir, "02_cleaned_health_candidates.csv")
   for (path in c(review_path, corpus_path)) {
     if (!file.exists(path)) {
@@ -42,16 +39,15 @@ evaluate_topic_svm <- function(config) {
     stop("Question IDs must be unique in the review and corpus files.",
          call. = FALSE)
   }
-  incomplete <- is.na(review$human_topic_label) |
-    !nzchar(review$human_topic_label) |
-    is.na(review$review_status) |
-    review$review_status != "reviewed"
-  if (any(incomplete)) {
-    stop(
-      sum(incomplete),
-      " human labels are blank or not marked reviewed.",
-      call. = FALSE
+  review <- review |>
+    dplyr::filter(
+      !is.na(human_topic_label),
+      nzchar(human_topic_label),
+      !is.na(review_status),
+      review_status == "reviewed"
     )
+  if (!nrow(review)) {
+    stop("The topic-review file has no completed human labels.", call. = FALSE)
   }
   label_counts <- table(review$human_topic_label)
   if (any(label_counts < 2L)) {
@@ -103,6 +99,7 @@ evaluate_topic_svm <- function(config) {
 
   svm_config <- config
   svm_config$min_term_count <- 1L
+  svm_config$svd_components <- config$classifier_svd_components
   features <- fit_text_features(training$text, svm_config)
   train_nonempty <- Matrix::rowSums(features$matrix) > 0
   if (any(!train_nonempty)) {
@@ -113,6 +110,7 @@ evaluate_topic_svm <- function(config) {
     stop("SVM training retained fewer than two human topic classes.",
          call. = FALSE)
   }
+  set.seed(config$random_seed)
   lsa <- fit_lsa(features$matrix, svm_config)
   classifier <- e1071::svm(
     x = lsa$coordinates,
@@ -243,10 +241,7 @@ evaluate_topic_svm <- function(config) {
 }
 
 evaluate_holdout_topic_model <- function(config) {
-  review_path <- file.path(
-    config$review_dir,
-    "06_topic_blind_review_reviewed.csv"
-  )
+  review_path <- config$topic_review_file
   corpus_path <- file.path(config$data_dir, "02_cleaned_health_candidates.csv")
   for (path in c(review_path, corpus_path)) {
     if (!file.exists(path)) {
@@ -278,16 +273,15 @@ evaluate_holdout_topic_model <- function(config) {
   if (anyDuplicated(review$question_id) || anyDuplicated(corpus$question_id)) {
     stop("Question IDs must be unique in the review and corpus files.", call. = FALSE)
   }
-  invalid_review <- is.na(review$human_topic_label) |
-    !nzchar(review$human_topic_label) |
-    is.na(review$review_status) |
-    review$review_status != "reviewed"
-  if (any(invalid_review)) {
-    stop(
-      sum(invalid_review),
-      " review rows need a human topic label and review_status=reviewed.",
-      call. = FALSE
+  review <- review |>
+    dplyr::filter(
+      !is.na(human_topic_label),
+      nzchar(human_topic_label),
+      !is.na(review_status),
+      review_status == "reviewed"
     )
+  if (!nrow(review)) {
+    stop("The topic-review file has no completed human labels.", call. = FALSE)
   }
   if (!all(review$question_id %in% corpus$question_id)) {
     stop(
@@ -322,8 +316,24 @@ evaluate_holdout_topic_model <- function(config) {
   train_nonempty <- Matrix::rowSums(features$matrix) > 0
   features$matrix <- features$matrix[train_nonempty, , drop = FALSE]
   training <- training[train_nonempty, , drop = FALSE]
+  set.seed(config$random_seed)
   lsa <- fit_lsa(features$matrix, config)
   clustering <- fit_kmeans(lsa$coordinates, config)
+  training_cluster_terms <- top_cluster_terms(
+    features$matrix,
+    features$vocabulary,
+    clustering$fit$cluster,
+    clustering$selected_k
+  )
+  cluster_topic_labels <- stats::setNames(
+    vapply(seq_len(clustering$selected_k), function(cluster_id) {
+      terms <- training_cluster_terms$term[
+        training_cluster_terms$cluster == cluster_id
+      ]
+      suggest_cluster_topic(terms)
+    }, character(1)),
+    as.character(seq_len(clustering$selected_k))
+  )
 
   test_iterator <- text2vec::itoken(
     testing$text,
@@ -357,7 +367,12 @@ evaluate_holdout_topic_model <- function(config) {
       cluster_label = ifelse(
         is.na(test_clusters),
         "Unprojectable text",
-        paste("Holdout k-means cluster", test_clusters)
+        paste0(
+          "Cluster ",
+          test_clusters,
+          ": ",
+          unname(cluster_topic_labels[as.character(test_clusters)])
+        )
       )
     )
   scored <- dplyr::filter(joined, !is.na(cluster_id))
@@ -391,10 +406,6 @@ evaluate_holdout_topic_model <- function(config) {
     dplyr::mutate(
       posthoc_correct = posthoc_predicted_topic == human_topic_label
     )
-  review$cluster_label <- scored$posthoc_predicted_topic[
-    match(review$question_id, scored$question_id)
-  ]
-  readr::write_csv(review, review_path, na = "")
   posthoc_accuracy <- mean(scored$posthoc_correct)
   topic_levels <- sort(unique(scored$human_topic_label))
   posthoc_confusion <- table(
@@ -460,7 +471,7 @@ evaluate_holdout_topic_model <- function(config) {
       "Held-out questions projected",
       "Selected training k",
       "Human topic labels in test set",
-      "Post-hoc mapped accuracy (uses all 300 human labels)",
+      "Post-hoc mapped accuracy (uses the reviewed human labels)",
       "Post-hoc mapped balanced accuracy",
       "Post-hoc mapped macro F1",
       "Adjusted Rand index",
@@ -486,7 +497,7 @@ evaluate_holdout_topic_model <- function(config) {
       "Held-out rows with at least one usable term in the training vocabulary.",
       "Cluster count selected using training data only.",
       "Distinct human topic categories in the projected held-out set.",
-      "Descriptive post-hoc score: each cluster is named using the majority human label among these same 300 rows; optimistic and not independent test accuracy.",
+      "Descriptive post-hoc score: each cluster is named using the majority human label among these same reviewed rows; optimistic and not independent test accuracy.",
       "Macro average recall for the same post-hoc mapping; uses test labels to name clusters.",
       "Macro F1 for the same post-hoc mapping; uses test labels to name clusters.",
       "Chance-adjusted agreement between holdout cluster membership and human topics; not classification accuracy.",
@@ -537,10 +548,7 @@ evaluate_holdout_topic_model <- function(config) {
 }
 
 evaluate_blind_topic_labels <- function(config) {
-  review_path <- file.path(
-    config$review_dir,
-    "06_topic_blind_review_reviewed.csv"
-  )
+  review_path <- config$topic_review_file
   cluster_path <- config$cluster_review_sample_file
   for (path in c(review_path, cluster_path)) {
     if (!file.exists(path)) {
@@ -581,25 +589,19 @@ evaluate_blind_topic_labels <- function(config) {
       question_id = as.character(question_id),
       source_url = trimws(as.character(source_url))
     )
-  incomplete <- is.na(review$human_topic_label) |
-    !nzchar(review$human_topic_label) |
-    is.na(review$review_status) |
-    review$review_status != "reviewed"
-  if (any(incomplete)) {
+  review <- review |>
+    dplyr::filter(
+      !is.na(human_topic_label),
+      nzchar(human_topic_label),
+      !is.na(review_status),
+      review_status == "reviewed"
+    ) |>
+    dplyr::semi_join(clusters, by = "question_id")
+  clusters <- clusters |>
+    dplyr::semi_join(review, by = "question_id")
+  if (nrow(review) < 2L) {
     stop(
-      sum(incomplete),
-      " review rows need a human topic label and review_status=reviewed.",
-      call. = FALSE
-    )
-  }
-
-  review_only <- setdiff(review$question_id, clusters$question_id)
-  cluster_only <- setdiff(clusters$question_id, review$question_id)
-  if (length(review_only) || length(cluster_only)) {
-    stop(
-      "Review and cluster files do not contain the same question IDs (",
-      length(review_only), " review-only; ", length(cluster_only),
-      " cluster-only). Regenerate or reconcile the files before evaluation.",
+      "At least two reviewed questions must also appear in the current cluster sample.",
       call. = FALSE
     )
   }

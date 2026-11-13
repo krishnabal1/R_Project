@@ -12,18 +12,54 @@ Review:
 
 - `outputs/tables/04_algorithm_comparison.csv`
 - `outputs/tables/04_kmeans_k_comparison.csv`
+- `outputs/tables/04_lsa_k_sensitivity_summary.csv`
+- `outputs/tables/04_lsa_k_sensitivity_unconstrained.csv`
+- `outputs/tables/04_lsa_k_sensitivity_validation.csv`
+- `outputs/plots/04_lsa_k_sensitivity.png`
 - `outputs/tables/04_dbscan_parameter_search.csv`
 - `outputs/tables/04_cluster_summary_top_terms.csv`
 - `data/processed/04_questions_with_clusters.csv`
+- `outputs/plots/04_dbscan_lsa_scatter.png`: sampled DBSCAN assignments;
+  noise points are gray and cluster IDs are shown in the legend.
 - `data/processed/06_cluster_labeled_300_with_sources.csv`: balanced sample
-  of 300 real Stack Exchange questions, with 15 assigned to each of the 20 current
-  k-means clusters and the corresponding human-readable topic suggestion.
+  of 300 real Stack Exchange questions, sampled as evenly as possible across
+  the current k-means clusters, with the corresponding provisional topic suggestion.
   Each row includes its original question ID, Gardening Stack Exchange
   permalink, source dataset filename, and creation time.
 - `outputs/plots/`
 
+Run `Rscript evaluate_lsa_k_sensitivity.R` to compare k=2 through 60 across
+2–20, 40, 60, and 80 LSA dimensions using the same sample and minimum-size
+rule. The highest unconstrained silhouette was k=2 with 2 dimensions (about
+0.68), but two groups are too broad for the project's topic-discovery goal.
+The project therefore requires k>=10 for selection. Among those candidates,
+2 dimensions with k=18 had the best tuning silhouette (about 0.546) and
+independent-sample silhouette (about 0.508), compared with about 0.346 for the
+previous 5-dimension/k=4 setting on that independent sample. This is a more
+useful granularity tradeoff, not proof of 18 natural or medically meaningful topics. Two
+dimensions are a very compressed representation, so inspect the top terms,
+example questions, and human-label agreement. If topics remain mixed, prioritize
+semantic usefulness over a higher silhouette. The scatter plot shows points
+along a curved continuum, so the high score can reflect partitioning that arc
+rather than 18 isolated semantic groups.
+Run `Rscript validate_lsa_k_configs.R` to compare leading configurations on a
+separate 2,500-question point sample; k=18 with 2 dimensions scored about 0.508,
+versus about 0.346 for the former 5-dimension/k=4 setting. This validation
+holds out points from centroid fitting, but uses the same unsupervised LSA
+space, so it is still an internal diagnostic rather than human-topic accuracy.
+
+The current k-means search evaluates k=2 through k=60, excludes k<10 from
+selection, and also requires at least 0.5% of the selection sample in the
+smallest cluster. Review `04_kmeans_k_comparison.csv`, the sensitivity
+summaries, cluster terms, and human-reviewed examples together. The reported
+silhouette is a sampled internal score, not topic-label or diagnosis accuracy.
+Review both `04_kmeans_silhouette.png` and
+`04_kmeans_silhouette_by_cluster.png`. The LSA scatter is only a 2-D projection
+of the full feature space, so apparent overlap in that plot alone does not
+determine cluster quality.
+
 The `cluster_id` and `cluster_label` in this sample describe unsupervised
-groups, not 20 verified disease classes. `diagnosis_verified` is always false.
+groups, not verified disease classes. `diagnosis_verified` is always false.
 The sample is selected from the existing scraped questions, not generated
 symptom records.
 
@@ -36,32 +72,33 @@ diagnosis or an independently verified disease label. Check the source
 platform's attribution and license requirements before redistributing question
 text.
 
-## 2. Name cluster topics, not diseases
+## 2. Review question topics
 
-Review `data/review/cluster_topic_labels.csv`. Each cluster row includes one
-representative question ID and its symptom text, plus top terms and example
-titles. Use these to write a concise `topic_label`, then record who reviewed it, the date,
-and notes, and set `review_status` to `reviewed`. Otherwise the pipeline will
-refresh the provisional suggestion on the next run. These labels describe themes in the questions (for example, leaf
-discoloration or watering discussions). Do not use a cluster name as a
-confirmed plant-health diagnosis or as a gold evaluation label.
+Use the single review sheet, `data/review/06_topic_review.csv`. It combines
+previously reviewed questions and the current 300-question sample, preserving
+human labels and review notes across runs. Each row includes the current
+`cluster_id` and `cluster_label` from the latest full-corpus model when the
+question is still present in the current corpus. `cluster_label_source` records
+the model source; if a historical question is no longer in the corpus, its last
+available label is retained.
 
-For an independent human topic check, label every row in
-`data/review/06_topic_blind_review.csv`. This sheet deliberately omits cluster
-IDs and generated cluster labels. Read the title and question text, assign a
-short consistent `human_topic_label` (or `unclear` if the text is insufficient),
-and fill in reviewer/date. Do not look at the cluster-labeled file until all
-human labels are complete. Existing review labels are preserved when the
-pipeline is rerun. After completing the sheet, provide it for comparison with
-the cluster assignments; agreement is a topic-coherence check, not disease
-diagnostic accuracy.
+Read each title and question text, enter a short consistent
+`human_topic_label` (or `unclear` if the text is insufficient), and fill in
+reviewer/date. Set `review_status` to `reviewed` when finished. The sheet is no
+longer blind because it includes model cluster labels; treat those labels as
+context only and assign human topics independently. The pipeline preserves
+existing review decisions and refreshes cluster labels from the current model.
 
-Run `Rscript evaluate_topic_labels.R` after saving the completed sheet as
-`data/review/06_topic_blind_review_reviewed.csv`. The script excludes those
-reviewed question IDs from the corpus before fitting the vocabulary, TF-IDF,
-SVD, choosing k, and training k-means. It then projects the reviewed questions
-into the training-only feature space and compares their new cluster assignments
-with your independent human topics. Outputs are saved as
+`outputs/tables/04_cluster_topic_labels.csv` contains generated provisional
+cluster-topic suggestions and top terms for reference. These are exploratory
+summaries, not diagnoses or human gold labels.
+
+Run `Rscript evaluate_topic_labels.R` after marking the rows you want evaluated
+as reviewed. Evaluation scripts ignore pending rows. The holdout evaluator
+excludes reviewed question IDs from the corpus before fitting the vocabulary,
+TF-IDF, SVD, choosing k, and training k-means. It then projects the reviewed
+questions into the training-only feature space and compares their new cluster
+assignments with the independent human topics. Outputs are saved as
 `outputs/tables/08_holdout_topic_metrics.csv`,
 `08_holdout_topic_predictions.csv`, and
 `08_holdout_topic_crosstab.csv`.
@@ -77,9 +114,11 @@ holdout cluster to its most frequent human topic using those same 300 labels
 and writes `08_posthoc_*` metrics and predictions. This reuses the test labels
 to name clusters, so the resulting accuracy is optimistic and must not be
 presented as independent test accuracy.
-The evaluation script also appends/refreshes a `cluster_label` column in the
-reviewed CSV with these post-hoc majority-topic predictions; the raw held-out
-cluster number remains available in `08_holdout_topic_predictions.csv`.
+The evaluation script keeps the review sheet's current full-corpus `cluster_label`
+unchanged. Training-only holdout cluster IDs and labels are available in
+`08_holdout_topic_predictions.csv`; these do not overwrite the current labels.
+Post-hoc majority-topic predictions remain separate in that output and are
+descriptive only.
 
 The same command additionally trains a supervised **linear SVM** to predict
 your `human_topic_label` values. It stratifies the reviewed records into an

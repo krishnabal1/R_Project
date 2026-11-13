@@ -459,12 +459,12 @@ evaluate_verified_cluster_mapping <- function(config) {
     dpi = 150
   )
   message("Unlabeled-cluster mapping on source-held-out verified cases:")
-  print(metrics)
+  print(as.data.frame(metrics))
   message(
     "All verified-case predictions (apparent score includes calibration cases; ",
     "not an independent performance estimate):"
   )
-  print(all_metrics)
+  print(as.data.frame(all_metrics))
   if (nrow(testing) < 30L) {
     warning(
       "Fewer than 30 source-isolated test cases are available; metrics are ",

@@ -16,7 +16,11 @@ make_config <- function(project_dir) {
     review_dir = review_dir,
     topic_review_file = file.path(
       review_dir,
-      "06_topic_blind_review.csv"
+      "06_topic_review.csv"
+    ),
+    cluster_topic_labels_file = file.path(
+      tables_dir,
+      "04_cluster_topic_labels.csv"
     ),
     cluster_review_sample_file = file.path(
       data_dir,
@@ -47,8 +51,10 @@ make_config <- function(project_dir) {
     min_term_count = 5L,
     max_document_proportion = 0.8,
     max_vocabulary = 12000L,
-    svd_components = 80L,
-    k_values = 2:20,
+    svd_components = 2L,
+    classifier_svd_components = 80L,
+    k_values = 2:60,
+    minimum_k = 10L,
     kmeans_restarts = 10L,
     selection_sample_size = 2500L,
     dbscan_sample_size = 1500L,

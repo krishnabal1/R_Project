@@ -14,11 +14,28 @@ top_cluster_terms <- function(tfidf_matrix, vocabulary, assignments, k) {
 }
 
 suggest_cluster_topic <- function(terms) {
+  terms <- utils::head(terms, 5L)
   has <- function(pattern) {
     any(grepl(paste0("^(", pattern, ")"), terms, ignore.case = TRUE))
   }
   if (has("tomato")) return("Tomato plant questions")
   if (has("palm")) return("Palm plant questions")
+  if (has("tree|trees|bark|branch|branches")) {
+    return("Tree health, structure, and fruiting questions")
+  }
+  if (has("grass|lawn") && has("soil|seed|seeds|grow")) {
+    return("Soil, lawn, and growing conditions")
+  }
+  if (has("soil") && has("plant|plants|seed|seeds")) {
+    return("Soil and plant-growing questions")
+  }
+  if (has("flower|flowers|petals") && has("identify|name")) {
+    return("Flower identification and flowering questions")
+  }
+  if (has("leaves|leaf") &&
+      has("brown|yellow|white|black|spots|spot|dying|wilting")) {
+    return("Leaf symptoms and plant-care questions")
+  }
   if (has("lemon|citrus|orange")) return("Citrus plant questions")
   if (has("aloe")) return("Aloe plant questions")
   if (has("cactus|cacti")) return("Cactus and succulent questions")
@@ -28,9 +45,6 @@ suggest_cluster_topic <- function(terms) {
   if (has("flower|flowers|petals")) return("Flowering plant questions")
   if (has("garden|bed|yard|landscape")) return("Garden and landscape questions")
   if (has("weed")) return("Lawn and weed questions")
-  if (has("tree|trees|bark|branch|branches")) {
-    return("Tree, fruit, and branch questions")
-  }
   if (has("root|roots|cuttings|rot")) {
     return("Root, propagation, and soil questions")
   }
@@ -85,7 +99,7 @@ make_cluster_topic_labels <- function(questions, top_terms, config) {
     )
   }))
 
-  label_file <- file.path(config$review_dir, "cluster_topic_labels.csv")
+  label_file <- config$cluster_topic_labels_file
   if (file.exists(label_file)) {
     previous <- readr::read_csv(label_file, show_col_types = FALSE)
     if (!"question_id" %in% names(previous) &&
@@ -239,7 +253,33 @@ write_cluster_review_sample <- function(questions, topic_labels, config) {
     stop("The cluster review sample is not balanced.", call. = FALSE)
   }
 
-  write_topic_blind_review(selected, config)
+  current_assignments <- questions |>
+    dplyr::transmute(
+      question_id = as.character(question_id),
+      cluster_id = as.character(kmeans_cluster)
+    ) |>
+    dplyr::left_join(
+      topic_labels |>
+        dplyr::filter(current_run) |>
+        dplyr::transmute(
+          cluster_id = as.character(cluster_id),
+          topic_label = as.character(topic_label)
+        ),
+      by = "cluster_id"
+    )
+  if (anyNA(current_assignments$topic_label) ||
+      any(!nzchar(current_assignments$topic_label))) {
+    stop("A current cluster is missing its topic label.", call. = FALSE)
+  }
+  current_assignments <- current_assignments |>
+    dplyr::transmute(
+      question_id,
+      cluster_id,
+      cluster_label = paste0("Cluster ", cluster_id, ": ", topic_label),
+      cluster_label_source = "current full-corpus k-means model"
+    )
+
+  write_topic_review_sheet(selected, config, current_assignments)
 
   output_path <- config$cluster_review_sample_file
   temporary_path <- tempfile(
@@ -260,7 +300,11 @@ write_cluster_review_sample <- function(questions, topic_labels, config) {
   selected
 }
 
-write_topic_blind_review <- function(selected, config) {
+write_topic_review_sheet <- function(
+  selected,
+  config,
+  current_assignments = NULL
+) {
   review_columns <- c(
     "human_topic_label",
     "human_label_notes",
@@ -270,10 +314,15 @@ write_topic_blind_review <- function(selected, config) {
   )
   review <- selected |>
     dplyr::transmute(
-      question_id,
-      source_url,
-      title,
-      symptom_text,
+      question_id = as.character(question_id),
+      source_url = as.character(source_url),
+      title = as.character(title),
+      symptom_text = as.character(symptom_text),
+      cluster_id = as.character(cluster_id),
+      cluster_label = paste0(
+        "Cluster ", cluster_id, ": ", as.character(cluster_label)
+      ),
+      cluster_label_source = "current full-corpus k-means model",
       human_topic_label = "",
       human_label_notes = "",
       reviewer = "",
@@ -291,37 +340,163 @@ write_topic_blind_review <- function(selected, config) {
     missing <- setdiff(required, names(previous))
     if (length(missing)) {
       stop(
-        "Blind topic-review file is missing columns: ",
+        "Topic-review file is missing columns: ",
         paste(missing, collapse = ", "),
         call. = FALSE
       )
     }
     if (anyDuplicated(previous$question_id)) {
-      stop("Blind topic-review file has duplicate question IDs.", call. = FALSE)
+      stop("Topic-review file has duplicate question IDs.", call. = FALSE)
+    }
+    for (column in c(
+      "source_url", "title", "symptom_text", "cluster_id",
+      "cluster_label", "cluster_label_source"
+    )) {
+      if (!column %in% names(previous)) previous[[column]] <- ""
     }
     previous <- previous |>
       dplyr::mutate(
         question_id = as.character(question_id),
-        dplyr::across(dplyr::all_of(review_columns), as.character)
-      ) |>
-      dplyr::select(question_id, dplyr::all_of(review_columns))
-    review <- review |>
-      dplyr::select(-dplyr::all_of(review_columns)) |>
-      dplyr::left_join(previous, by = "question_id") |>
-      dplyr::mutate(
         dplyr::across(
-          dplyr::all_of(review_columns),
-          ~ dplyr::if_else(is.na(.x), "", .x)
+          dplyr::all_of(c(
+            "source_url", "title", "symptom_text", "cluster_id",
+            "cluster_label", "cluster_label_source", review_columns
+          )),
+          as.character
+        )
+      ) |>
+      dplyr::select(
+        question_id,
+        "source_url", "title", "symptom_text", "cluster_id",
+        "cluster_label", "cluster_label_source",
+        dplyr::all_of(review_columns)
+      )
+    review <- dplyr::full_join(
+      previous,
+      review,
+      by = "question_id",
+      suffix = c("_previous", "_current")
+    ) |>
+      dplyr::transmute(
+        question_id,
+        source_url = dplyr::coalesce(
+          dplyr::na_if(source_url_current, ""),
+          source_url_previous,
+          ""
         ),
+        title = dplyr::coalesce(
+          dplyr::na_if(title_current, ""),
+          title_previous,
+          ""
+        ),
+        symptom_text = dplyr::coalesce(
+          dplyr::na_if(symptom_text_current, ""),
+          symptom_text_previous,
+          ""
+        ),
+        cluster_id = dplyr::coalesce(
+          dplyr::na_if(cluster_id_current, ""),
+          cluster_id_previous,
+          ""
+        ),
+        cluster_label = dplyr::coalesce(
+          dplyr::na_if(cluster_label_current, ""),
+          cluster_label_previous,
+          ""
+        ),
+        cluster_label_source = dplyr::coalesce(
+          dplyr::na_if(cluster_label_source_current, ""),
+          cluster_label_source_previous,
+          ""
+        ),
+        human_topic_label = dplyr::coalesce(
+          dplyr::na_if(human_topic_label_previous, ""),
+          human_topic_label_current,
+          ""
+        ),
+        human_label_notes = dplyr::coalesce(
+          dplyr::na_if(human_label_notes_previous, ""),
+          human_label_notes_current,
+          ""
+        ),
+        reviewer = dplyr::coalesce(
+          dplyr::na_if(reviewer_previous, ""),
+          reviewer_current,
+          ""
+        ),
+        reviewed_on = dplyr::coalesce(
+          dplyr::na_if(reviewed_on_previous, ""),
+          reviewed_on_current,
+          ""
+        ),
+        review_status = dplyr::coalesce(
+          dplyr::na_if(review_status_previous, ""),
+          review_status_current,
+          "pending"
+        )
+      ) |>
+      dplyr::mutate(
         review_status = dplyr::if_else(
           nzchar(trimws(human_topic_label)) &
-            review_status %in% c("", "pending"),
+            tolower(trimws(review_status)) %in% c("", "pending"),
           "reviewed",
-          dplyr::if_else(nzchar(review_status), review_status, "pending")
+          dplyr::if_else(
+            nzchar(review_status),
+            review_status,
+            "pending"
+          )
         )
       )
   }
 
+  review <- review |>
+    dplyr::arrange(question_id)
+  if (!is.null(current_assignments)) {
+    required_assignments <- c(
+      "question_id", "cluster_id", "cluster_label", "cluster_label_source"
+    )
+    missing_assignments <- setdiff(
+      required_assignments,
+      names(current_assignments)
+    )
+    if (length(missing_assignments)) {
+      stop(
+        "Current cluster assignments are missing columns: ",
+        paste(missing_assignments, collapse = ", "),
+        call. = FALSE
+      )
+    }
+    if (anyDuplicated(current_assignments$question_id)) {
+      stop("Current cluster assignments have duplicate question IDs.",
+           call. = FALSE)
+    }
+    review <- review |>
+      dplyr::left_join(
+        current_assignments |>
+          dplyr::mutate(question_id = as.character(question_id)) |>
+          dplyr::rename(
+            latest_cluster_id = cluster_id,
+            latest_cluster_label = cluster_label,
+            latest_cluster_label_source = cluster_label_source
+          ),
+        by = "question_id"
+      ) |>
+      dplyr::mutate(
+        cluster_id = dplyr::coalesce(
+          dplyr::na_if(latest_cluster_id, ""),
+          cluster_id
+        ),
+        cluster_label = dplyr::coalesce(
+          dplyr::na_if(latest_cluster_label, ""),
+          cluster_label
+        ),
+        cluster_label_source = dplyr::coalesce(
+          dplyr::na_if(latest_cluster_label_source, ""),
+          cluster_label_source
+        )
+      ) |>
+      dplyr::select(-dplyr::starts_with("latest_cluster_"))
+  }
   readr::write_csv(review, config$topic_review_file, quote = "all")
   invisible(review)
 }

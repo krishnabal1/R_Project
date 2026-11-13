@@ -5,12 +5,15 @@ Source: stackexchange_gardening_raw_25k.csv
 Original data rows: 16454
 Health candidate questions: 8536
 Balanced real-question cluster sample: 300 rows at data/processed/06_cluster_labeled_300_with_sources.csv
-K-means selected k: 20
-K-means sample silhouette: 0.0773
-K-means stability mean ARI: 0.4589
+K-means selected k: 18
+K-means search range: 2 to 60
+Minimum k eligible for selection: 10
+LSA dimensions used for clustering: 2
+K-means sample silhouette: 0.5303
+K-means stability mean ARI: 0.6981
 DBSCAN sampled clusters: 2
-DBSCAN sample coverage: 99.2%
-DBSCAN sample silhouette: 0.0533
+DBSCAN sample coverage: 98.9%
+DBSCAN sample silhouette: 0.5691
 
 Stack Exchange questions are used only as unlabeled text for clustering.
 Cluster names are human topic summaries, not disease diagnoses or training labels.
@@ -26,18 +29,15 @@ Unverified or synthetic rows excluded: 0
 Categories used: Bacterial tomato disease, Fungal or oomycete tomato disease
 Calibration examples: 8
 Held-out examples: 5
-Held-out cases assigned to a mapped cluster: 100.0%
+Held-out cases assigned to a mapped cluster: 60.0%
 Source-derived benchmark accuracy: 40.0%
-Held-out balanced accuracy: 50.0%
-Held-out macro precision / recall: 0.200 / 0.500
-Held-out macro F1: 0.286
-All 13 rows apparent accuracy (includes calibration cases): 61.5%
+Held-out balanced accuracy: 41.7%
+Held-out macro precision / recall: 0.750 / 0.417
+Held-out macro F1: 0.500
+All 13 rows apparent accuracy (includes calibration cases): 76.9%
 The all-row apparent score is descriptive only; calibration cases helped create the mapping.
 Important limitation: Calibration cases alone map clusters to conditions; test labels are not used to name clusters. Scores measure agreement with source labels, not clinical diagnostic accuracy. The held-out sample is very small.
 This benchmark uses paraphrases authored from fact sheets, not independent plant observations; do not report its scores as real-world prediction accuracy. The tiny number of source pages also makes calibration and held-out results highly preliminary.
 
 QUALITY WARNINGS
-- K-means silhouette is low; the groups overlap and need careful human review.
-- Selected k is at the maximum tested value; extend the search and inspect the elbow before finalizing cluster count.
-- K-means assignments vary across random starts; cluster stability is limited.
-- Classification macro F1 is low; performance varies across categories and needs improvement.
+- The 2-D embedding forms a curved continuum; its high silhouette may reward arc segmentation rather than distinct semantic topics. Treat k and labels as provisional.

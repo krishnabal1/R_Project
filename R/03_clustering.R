@@ -87,10 +87,16 @@ fit_kmeans <- function(coordinates, config) {
     )
   })
   candidates <- dplyr::bind_rows(candidate_rows)
-  valid <- which(
+  if (config$minimum_k > max(config$k_values)) {
+    stop("minimum_k must not exceed the largest tested k.", call. = FALSE)
+  }
+  candidates$eligible <- (
+    candidates$k >= config$minimum_k &
     is.finite(candidates$silhouette) &
-      candidates$minimum_cluster_size >= max(5L, ceiling(0.005 * length(indices)))
+      candidates$minimum_cluster_size >=
+        max(5L, ceiling(0.005 * length(indices)))
   )
+  valid <- which(candidates$eligible)
   if (length(valid) == 0L) {
     stop("No k-means candidate met the minimum cluster-size check.", call. = FALSE)
   }
