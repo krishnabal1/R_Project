@@ -1,0 +1,7 @@
+metric,value,interpretation
+Reviewed questions,300,Questions with completed independent human topic labels.
+K-means clusters,18,Number of distinct unsupervised k-means groups represented.
+Human topic labels,18,Number of distinct human-assigned topic categories.
+Adjusted Rand index,0.4298319182741429,"Chance-adjusted agreement between cluster memberships and human topics; 1 is perfect, 0 is chance-level."
+Normalized mutual information,0.6480678621716428,"Shared information between cluster membership and human topic labels, normalized to 0-1."
+Cluster purity (descriptive),0.66,Share of questions matching each cluster's most common human topic; descriptive and not chance-adjusted.

@@ -103,22 +103,6 @@ assignments with the independent human topics. Outputs are saved as
 `08_holdout_topic_predictions.csv`, and
 `08_holdout_topic_crosstab.csv`.
 
-Because training posts have no human topic labels and cluster IDs are arbitrary,
-classification accuracy is not defined for this unsupervised holdout test.
-Use adjusted Rand index (ARI) and normalized mutual information (NMI); cluster
-purity is descriptive only. The earlier `07_topic_agreement_metrics.csv`
-score used clusters fitted on the full corpus (including these reviewed rows),
-so treat it as an in-sample comparison, not the independent holdout result.
-For a requested, descriptive accuracy-like number, the script also maps each
-holdout cluster to its most frequent human topic using those same 300 labels
-and writes `08_posthoc_*` metrics and predictions. This reuses the test labels
-to name clusters, so the resulting accuracy is optimistic and must not be
-presented as independent test accuracy.
-The evaluation script keeps the review sheet's current full-corpus `cluster_label`
-unchanged. Training-only holdout cluster IDs and labels are available in
-`08_holdout_topic_predictions.csv`; these do not overwrite the current labels.
-Post-hoc majority-topic predictions remain separate in that output and are
-descriptive only.
 
 The same command additionally trains a supervised **linear SVM** to predict
 your `human_topic_label` values. It stratifies the reviewed records into an
