@@ -1,4 +1,4 @@
-algorithm,cluster_count,assigned_fraction,minimum_cluster_size,silhouette,davies_bouldin,calinski_harabasz,min_points,epsilon_quantile,epsilon,eligible,selected,stability_mean_ari
-K-means,18,1,38,0.5302865396930028,0.5061199780917458,30273.440510499804,NA,NA,NA,NA,NA,0.6981387489504113
-DBSCAN,2,0.9886666666666667,38,0.5691366818943042,0.3008170833063754,344.94336322306424,15,0.95,0.029370281881458307,TRUE,TRUE,NA
-Hierarchical Ward (sample),18,1,13,0.5407478274888854,0.49586026921878895,8864.033007941733,NA,NA,NA,NA,NA,NA
+algorithm                 , cluster_count, assigned_fraction , minimum_cluster_size, silhouette        , davies_bouldin     , calinski_harabasz   , min_points, epsilon_quantile, epsilon             , eligible, selected, stability_mean_ari
+K-means                   ,            18, 1                 ,                   38, 0.5302865396930028, 0.5061199780917458 , 30273.440510499804  , NA        , NA              , NA                  , NA      , NA      , 0.6981387489504113
+DBSCAN                    ,             2, 0.9886666666666667,                   38, 0.5691366818943042, 0.3008170833063754 ,   344.94336322306424, 15        , 0.95            , 0.029370281881458307, TRUE    , TRUE    , NA
+Hierarchical Ward (sample),            18, 1                 ,                   13, 0.5407478274888854, 0.49586026921878895,  8864.033007941733  , NA        , NA              , NA                  , NA      , NA      , NA
