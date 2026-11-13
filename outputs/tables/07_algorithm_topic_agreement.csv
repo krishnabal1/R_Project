@@ -1,3 +1,0 @@
-algorithm,reviewed_questions_total,reviewed_questions_scored,reviewed_coverage,cluster_groups_in_scored_data,human_topic_labels_in_scored_data,adjusted_rand_index,normalized_mutual_information,cluster_purity_descriptive,note
-K-means,300,300,1,20,19,0.4298319182741429,0.6480678621716428,0.66,All reviewed questions; k-means clusters fitted on this source corpus.
-DBSCAN,300,52,0.17333333333333334,1,19,0,0,0.09615384615384616,Only DBSCAN's fitted subset is scored; unassigned sampled questions are not treated as noise. This is coverage-limited.
