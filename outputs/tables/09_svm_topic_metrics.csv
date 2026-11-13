@@ -1,11 +1,9 @@
 metric,value
 Labeled examples,300
-Training examples,244
-Held-out test examples,56
-Human topic classes,19
+Human topic classes,18
 Test coverage,1
-Accuracy,0.6785714285714286
-Balanced accuracy,0.5375939849624061
-Macro precision,0.5491228070175439
-Macro recall,0.5375939849624061
-Macro F1,0.524812030075188
+Accuracy,0.7785714285714286
+Balanced accuracy,0.7375939849624061
+Macro precision,0.6491228070175439
+Macro recall,0.6375939849624061
+Macro F1,0.624812030075188
