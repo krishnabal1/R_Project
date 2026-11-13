@@ -25,6 +25,7 @@ if (length(missing_packages)) {
 source(file.path(project_dir, "R", "00_config.R"))
 source(file.path(project_dir, "R", "02_features.R"))
 source(file.path(project_dir, "R", "03_clustering.R"))
+source(file.path(project_dir, "R", "04_review.R"))
 source(file.path(project_dir, "R", "07_topic_evaluation.R"))
 config <- make_config(project_dir)
 make_directories(config)

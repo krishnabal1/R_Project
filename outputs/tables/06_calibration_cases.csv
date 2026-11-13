@@ -1,9 +1,0 @@
-case_id,source_url,condition_label,cluster_id
-ref-early-blight-01,https://content.ces.ncsu.edu/early-blight-of-tomato,Fungal or oomycete tomato disease,5
-ref-early-blight-02,https://content.ces.ncsu.edu/early-blight-of-tomato,Fungal or oomycete tomato disease,15
-ref-septoria-ncsu-01,https://content.ces.ncsu.edu/septoria-leaf-spot-of-tomato,Fungal or oomycete tomato disease,15
-ref-septoria-ncsu-02,https://content.ces.ncsu.edu/septoria-leaf-spot-of-tomato,Fungal or oomycete tomato disease,15
-ref-late-blight-01,https://content.ces.ncsu.edu/tomato-late-blight,Fungal or oomycete tomato disease,15
-ref-late-blight-02,https://content.ces.ncsu.edu/tomato-late-blight,Fungal or oomycete tomato disease,15
-ref-bacterial-canker-01,https://content.ces.ncsu.edu/bacterial-canker-of-tomato,Bacterial tomato disease,15
-ref-bacterial-canker-02,https://content.ces.ncsu.edu/bacterial-canker-of-tomato,Bacterial tomato disease,15

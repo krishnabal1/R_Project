@@ -59,6 +59,7 @@ features <- fit_text_features(questions$text, config)
 nonempty <- Matrix::rowSums(features$matrix) > 0
 questions <- questions[nonempty, , drop = FALSE]
 features$matrix <- features$matrix[nonempty, , drop = FALSE]
+set.seed(config$random_seed)
 lsa <- fit_lsa(features$matrix, config)
 readr::write_csv(
   tibble::tibble(
@@ -87,7 +88,7 @@ message(sprintf(
 message("Algorithm comparison:")
 print(saved$comparison)
 message(
-  "Cluster topic labels: data/review/cluster_topic_labels.csv"
+  "Cluster topic label suggestions: outputs/tables/04_cluster_topic_labels.csv"
 )
 cluster_review_sample <- write_cluster_review_sample(
   clustering$questions,
@@ -104,6 +105,7 @@ classification <- evaluate_verified_cluster_mapping(config)
 write_analysis_report(
   original_rows,
   clustering$questions,
+  lsa,
   clustering,
   config,
   classification
